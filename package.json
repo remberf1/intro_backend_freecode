@@ -1,0 +1,23 @@
+{
+  "name": "intro_backend_freecodecamp",
+  "version": "1.0.0",
+  "description": "intro to backend",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/remberf1/intro_backend_freecode.git"
+  },
+  "author": "amiwho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/remberf1/intro_backend_freecode/issues"
+  },
+  "homepage": "https://github.com/remberf1/intro_backend_freecode#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

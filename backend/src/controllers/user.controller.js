@@ -1,8 +1,9 @@
 import {User} from '../models/user.model.js';
+import jwt from 'jsonwebtoken';
 
 const registerUser = async (req,res)=>{
     try{
-        const {username , password, email} = req.body;
+        const {username , password, email,role} = req.body;
 
         //basic validation
         if(!username || !password || !email){
@@ -18,9 +19,12 @@ const registerUser = async (req,res)=>{
             username,
             password,
             email: email.toLowerCase(),
-            loggedIn: false
+            loggedIn: false,
+            role: role || 'user'
         });
-        res.status(201).json({message: "User registered successfully", id: user._id, username: user.username, email: user.email});
+        res.status(201).json({message: "User registered successfully", id: user._id, username: user.username, email: user.email,
+            role: user.role
+        });
     }catch(error){
         res.status(500).json({message: "Server error", error: error.message});
     }
@@ -41,7 +45,15 @@ const loginUser = async (req,res)=>{
         if(!isMatch){
             return res.status(401).json({message: "Invalid credentials"})
         }
-        res.status(200).json({message: "User logged in successfully",user:{
+        const token = jwt.sign({
+            id: user._id,
+            role: user.role,
+            username: user.username
+        }, process.env.JWT_SECRET, {expiresIn: '1d'
+        })
+        res.status(200).json({message: "User logged in successfully",
+            token
+            ,user:{
             id: user._id,
             username: user.username,
             email: user.email
